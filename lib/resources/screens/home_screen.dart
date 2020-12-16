@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:skype_clone/resources/screens/pageviews/chat_list_screen.dart'
+    show ChatListScreen;
 import 'package:skype_clone/resources/utils/universal_variables.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TOD: implement initState
     super.initState();
     pageController = PageController();
   }
@@ -37,11 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: UniversalVariables.blackColor,
       body: PageView(
         children: <Widget>[
-          Center(
-              child: Text(
-            "Chat List Screen",
-            style: TextStyle(color: Colors.white),
-          )),
+          Container(
+            child: ChatListScreen(),
+          ),
           Center(
               child: Text(
             "Call Logs",
