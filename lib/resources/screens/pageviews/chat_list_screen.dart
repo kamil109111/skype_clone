@@ -3,6 +3,7 @@ import 'package:skype_clone/resources/firebase_repository.dart';
 import 'package:skype_clone/resources/utils/universal_variables.dart';
 import 'package:skype_clone/resources/utils/utilities.dart';
 import 'package:skype_clone/widgets/appbar.dart';
+import 'package:skype_clone/widgets/custom_tile.dart';
 
 class ChatListScreen extends StatefulWidget {
   @override
@@ -45,7 +46,9 @@ class _ChatListScreenState extends State<ChatListScreen> {
             Icons.notifications,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "/search_screen");
+          },
         ),
         IconButton(
           icon: Icon(
@@ -64,6 +67,70 @@ class _ChatListScreenState extends State<ChatListScreen> {
       backgroundColor: UniversalVariables.blackColor,
       appBar: customAppBar(context),
       floatingActionButton: NewChatButton(),
+      body: ChatListContainer(currentUserId),
+    );
+  }
+}
+
+class ChatListContainer extends StatefulWidget {
+  final String currentUserId;
+
+  ChatListContainer(this.currentUserId);
+
+  @override
+  _ChatListContainerState createState() => _ChatListContainerState();
+}
+
+class _ChatListContainerState extends State<ChatListContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ListView.builder(
+        padding: EdgeInsets.all(10),
+        itemCount: 2,
+        itemBuilder: (context, index) {
+          return CustomTile(
+            mini: false,
+            onTap: () {},
+            title: Text(
+              "The CS Guy",
+              style: TextStyle(
+                  color: Colors.white, fontFamily: "Arial", fontSize: 19),
+            ),
+            subtitle: Text(
+              "Hello",
+              style:
+                  TextStyle(color: UniversalVariables.greyColor, fontSize: 14),
+            ),
+            leading: Container(
+              constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
+              child: Stack(
+                children: <Widget>[
+                  CircleAvatar(
+                    maxRadius: 30,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: NetworkImage(
+                        "https://yt3.ggpht.com/a/AGF-17_zT8BuWwHTymaQaBptCy7WrsOD72gYGp-puw=s900-c-k-c0xffffffff-no-rj-mo"),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: UniversalVariables.onlineDotColor,
+                        border: Border.all(
+                            color: UniversalVariables.blackColor, width: 2),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
