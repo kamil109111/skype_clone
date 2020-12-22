@@ -1,4 +1,4 @@
-# Referenced at C:\Users\Tomcze\OneDrive\Pulpit\pam\skype_clone\build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:17
+# Referenced at C:\flutter\flutter_projects\skype_clone\build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:17
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
-# Referenced at C:\Users\Tomcze\OneDrive\Pulpit\pam\skype_clone\build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:17
+# Referenced at C:\flutter\flutter_projects\skype_clone\build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:17
 -keep class androidx.multidex.MultiDexApplication { <init>(); }
