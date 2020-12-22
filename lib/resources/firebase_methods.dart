@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart'
-    show DocumentSnapshot, Firestore, QuerySnapshot;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:skype_clone/models/user.dart';
@@ -62,5 +61,18 @@ class FirebaseMethods {
     await _googleSignIn.disconnect();
     await _googleSignIn.signOut();
     return await _auth.signOut();
+  }
+
+  Future<List<User>> fetchAllUsers(FirebaseUser currentUser) async {
+    List<User> userList = List<User>();
+
+    QuerySnapshot querySnapshot =
+        await firestore.collection("users").getDocuments();
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      if (querySnapshot.documents[i].documentID != currentUser.uid) {
+        userList.add(User.fromMap(querySnapshot.documents[i].data));
+      }
+    }
+    return userList;
   }
 }
