@@ -6,6 +6,8 @@ INJECTED from C:\flutter\flutter_projects\skype_clone\android\app\src\main\Andro
 INJECTED from C:\flutter\flutter_projects\skype_clone\android\app\src\main\AndroidManifest.xml:1:1-41:12
 MERGED from C:\flutter\flutter_projects\skype_clone\android\app\src\main\AndroidManifest.xml:1:1-41:12
 MERGED from [:firebase_auth] C:\flutter\flutter_projects\skype_clone\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:emoji_picker] C:\flutter\flutter_projects\skype_clone\build\emoji_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences] C:\flutter\flutter_projects\skype_clone\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:permission_handler] C:\flutter\flutter_projects\skype_clone\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:cloud_firestore] C:\flutter\flutter_projects\skype_clone\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:google_sign_in] C:\flutter\flutter_projects\skype_clone\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -141,6 +143,10 @@ INJECTED from C:\flutter\flutter_projects\skype_clone\android\app\src\main\Andro
 INJECTED from C:\flutter\flutter_projects\skype_clone\android\app\src\main\AndroidManifest.xml
 MERGED from [:firebase_auth] C:\flutter\flutter_projects\skype_clone\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_auth] C:\flutter\flutter_projects\skype_clone\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:emoji_picker] C:\flutter\flutter_projects\skype_clone\build\emoji_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:emoji_picker] C:\flutter\flutter_projects\skype_clone\build\emoji_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] C:\flutter\flutter_projects\skype_clone\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] C:\flutter\flutter_projects\skype_clone\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler] C:\flutter\flutter_projects\skype_clone\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:permission_handler] C:\flutter\flutter_projects\skype_clone\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] C:\flutter\flutter_projects\skype_clone\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
