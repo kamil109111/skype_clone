@@ -15,6 +15,8 @@ class FirebaseRepository {
 
   Future<FirebaseUser> signIn() => _firebaseMethods.signIn();
 
+  Future<User> getUserDetails() => _firebaseMethods.getUserDetails();
+
   Future<bool> authenticateUser(FirebaseUser user) =>
       _firebaseMethods.authenticateUser(user);
 
