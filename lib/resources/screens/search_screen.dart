@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:skype_clone/models/user.dart';
-import 'package:skype_clone/resources/firebase_repository.dart';
+import 'package:skype_clone/resources/auth_methods.dart';
+import 'package:skype_clone/resources/screens/callscreens/pickup/pickup_layout.dart';
+import 'package:skype_clone/resources/screens/chatscreens/chat_screen.dart';
 import 'package:skype_clone/resources/utils/universal_variables.dart';
 import 'package:skype_clone/widgets/custom_tile.dart';
-import 'chatscreens/chat_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  FirebaseRepository _repository = FirebaseRepository();
+  final AuthMethods _authMethods = AuthMethods();
 
   List<User> userList;
   String query = "";
@@ -23,8 +24,8 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
 
-    _repository.getCurrentUser().then((FirebaseUser user) {
-      _repository.fetchAllUsers(user).then((List<User> list) {
+    _authMethods.getCurrentUser().then((FirebaseUser user) {
+      _authMethods.fetchAllUsers(user).then((List<User> list) {
         setState(() {
           userList = list;
         });
@@ -34,8 +35,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
   searchAppBar(BuildContext context) {
     return GradientAppBar(
-      backgroundColorStart: UniversalVariables.gradientColorStart,
-      backgroundColorEnd: UniversalVariables.gradientColorEnd,
+      gradient: LinearGradient(
+        colors: [
+          UniversalVariables.gradientColorStart,
+          UniversalVariables.gradientColorEnd,
+        ],
+      ),
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () => Navigator.pop(context),
@@ -82,26 +87,31 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   buildSuggestions(String query) {
-    final List<User> suggestionsList = query.isEmpty
+    final List<User> suggestionList = query.isEmpty
         ? []
-        : userList.where((User user) {
-            String _getUsername = user.username.toLowerCase();
-            String _query = query.toLowerCase();
-            String _getName = user.name.toLowerCase();
-            bool matchesUsername = _getUsername.contains(_query);
-            bool matchesName = _getName.contains(_query);
+        : userList != null
+            ? userList.where((User user) {
+                String _getUsername = user.username.toLowerCase();
+                String _query = query.toLowerCase();
+                String _getName = user.name.toLowerCase();
+                bool matchesUsername = _getUsername.contains(_query);
+                bool matchesName = _getName.contains(_query);
 
-            return (matchesUsername || matchesName);
-          }).toList();
+                return (matchesUsername || matchesName);
+
+                // (User user) => (user.username.toLowerCase().contains(query.toLowerCase()) ||
+                //     (user.name.toLowerCase().contains(query.toLowerCase()))),
+              }).toList()
+            : [];
 
     return ListView.builder(
-      itemCount: suggestionsList.length,
+      itemCount: suggestionList.length,
       itemBuilder: ((context, index) {
         User searchedUser = User(
-            uid: suggestionsList[index].uid,
-            profilePhoto: suggestionsList[index].profilePhoto,
-            name: suggestionsList[index].name,
-            username: suggestionsList[index].username);
+            uid: suggestionList[index].uid,
+            profilePhoto: suggestionList[index].profilePhoto,
+            name: suggestionList[index].name,
+            username: suggestionList[index].username);
 
         return CustomTile(
           mini: false,
@@ -135,12 +145,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: UniversalVariables.blackColor,
-      appBar: searchAppBar(context),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: buildSuggestions(query),
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: UniversalVariables.blackColor,
+        appBar: searchAppBar(context),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: buildSuggestions(query),
+        ),
       ),
     );
   }

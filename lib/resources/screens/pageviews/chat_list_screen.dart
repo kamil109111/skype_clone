@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:skype_clone/resources/firebase_repository.dart';
+import 'package:skype_clone/resources/auth_methods.dart';
+import 'package:skype_clone/resources/screens/callscreens/pickup/pickup_layout.dart';
 import 'package:skype_clone/resources/utils/universal_variables.dart';
 import 'package:skype_clone/resources/utils/utilities.dart';
 import 'package:skype_clone/widgets/appbar.dart';
@@ -11,18 +11,16 @@ class ChatListScreen extends StatefulWidget {
   _ChatListScreenState createState() => _ChatListScreenState();
 }
 
-//global
-final FirebaseRepository _repository = FirebaseRepository();
-
 class _ChatListScreenState extends State<ChatListScreen> {
+  final AuthMethods _authMethods = AuthMethods();
+
   String currentUserId;
-  String initials;
+  String initials = "";
 
   @override
   void initState() {
-    //TOD: implement initState
     super.initState();
-    _repository.getCurrentUser().then((user) {
+    _authMethods.getCurrentUser().then((user) {
       setState(() {
         currentUserId = user.uid;
         initials = Utils.getInitials(user.displayName);
@@ -64,11 +62,13 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: UniversalVariables.blackColor,
-      appBar: customAppBar(context),
-      floatingActionButton: NewChatButton(),
-      body: ChatListContainer(currentUserId),
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: UniversalVariables.blackColor,
+        appBar: customAppBar(context),
+        floatingActionButton: NewChatButton(),
+        body: ChatListContainer(currentUserId),
+      ),
     );
   }
 }
@@ -107,25 +107,28 @@ class _ChatListContainerState extends State<ChatListContainer> {
             ),
             leading: Container(
               constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
-              child: Stack(children: <Widget>[
-                CircleAvatar(
-                  maxRadius: 30,
-                  backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(''),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: UniversalVariables.onlineDotColor,
-                        border: Border.all(
-                            color: UniversalVariables.blackColor, width: 2)),
+              child: Stack(
+                children: <Widget>[
+                  CircleAvatar(
+                    maxRadius: 30,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: NetworkImage(
+                        "https://yt3.ggpht.com/a/AGF-l7_zT8BuWwHTymaQaBptCy7WrsOD72gYGp-puw=s900-c-k-c0xffffffff-no-rj-mo"),
                   ),
-                )
-              ]),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      height: 13,
+                      width: 13,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: UniversalVariables.onlineDotColor,
+                          border: Border.all(
+                              color: UniversalVariables.blackColor, width: 2)),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
@@ -172,7 +175,7 @@ class UserCircle extends StatelessWidget {
                       color: UniversalVariables.blackColor, width: 2),
                   color: UniversalVariables.onlineDotColor),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -191,7 +194,7 @@ class NewChatButton extends StatelessWidget {
         color: Colors.white,
         size: 25,
       ),
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.all(15),
     );
   }
 }
