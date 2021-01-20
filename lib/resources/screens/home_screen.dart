@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:skype_clone/enum/user_state.dart';
 import 'package:skype_clone/provider/user_provider.dart';
 import 'package:skype_clone/resources/auth_methods.dart';
+import 'package:skype_clone/resources/local_db/db/repository/log_repository.dart';
 import 'package:skype_clone/resources/screens/callscreens/pickup/pickup_layout.dart';
-import 'package:skype_clone/resources/screens/pageviews/chat_list_screen.dart';
+import 'package:skype_clone/resources/screens/pageviews/chats/chat_list_screen.dart';
+import 'package:skype_clone/resources/screens/pageviews/logs/log_screen.dart';
 import 'package:skype_clone/resources/utils/universal_variables.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,9 +19,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   PageController pageController;
   int _page = 0;
-  final AuthMethods _authMethods = AuthMethods();
-
   UserProvider userProvider;
+
+  final AuthMethods _authMethods = AuthMethods();
+  // final LogRepository _logRepository = LogRepository(isHive: true);
+  // final LogRepository _logRepository = LogRepository(isHive: false);
 
   @override
   void initState() {
@@ -32,6 +36,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       _authMethods.setUserState(
         userId: userProvider.getUser.uid,
         userState: UserState.Online,
+      );
+
+      LogRepository.init(
+        isHive: true,
+        dbName: userProvider.getUser.uid,
       );
     });
 
@@ -102,15 +111,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         backgroundColor: UniversalVariables.blackColor,
         body: PageView(
           children: <Widget>[
-            Container(
-              child: ChatListScreen(),
-            ),
-            Center(
-              child: Text(
-                "Call Logs",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
+            ChatListScreen(),
+            LogScreen(),
             Center(
                 child: Text(
               "Contact Screen",
